@@ -39,23 +39,15 @@ New-AzVm `
 -SecurityGroupName $networkSecurityGroupName `
 -SshKeyName $sshKeyName  -PublicIpAddressName $publicIpAddressName
 
-# ↓↓↓ Write your code here ↓↓↓
-
 Write-Host "Creating a Custom Script VM Extension to install the web app ..."
 
-# Define the URI for the install-app.sh script from your GitHub fork.
-# IMPORTANT: Replace <your-github-username> with your actual GitHub username.
 $scriptUri = "https://raw.githubusercontent.com/leoleiden/azure_task_12_deploy_app_with_vm_extention/main/install-app.sh"
 
-# Define the settings for the Custom Script Extension
-# fileUris specifies the URL of the script to download
-# commandToExecute specifies the command to run on the VM after downloading the script
 $publicSettings = @{
     "fileUris" = @($scriptUri);
     "commandToExecute" = "bash install-app.sh"
 }
 
-# Create the VM Extension
 Set-AzVMExtension `
     -ResourceGroupName $resourceGroupName `
     -VMName $vmName `
